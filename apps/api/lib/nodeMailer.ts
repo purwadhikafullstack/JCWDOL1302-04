@@ -16,7 +16,7 @@ export const templateNodemailer = async (email: string, token: string) => {
     subject: 'Verify Email',
     html: `
       <p>Click the link below to verify your email:</p>
-      <a href="http://localhost:3000/verification-email?token=${token}">Click here</a>
+      <a href="https://jcwdol130204.purwadhikabootcamp.com/verification-email?token=${token}">Click here</a>
     `,
   });
 };
