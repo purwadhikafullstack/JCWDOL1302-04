@@ -139,7 +139,7 @@ const UpdateForm = ({
             ) : imageUrl ? (
               <Image
                 className="object-cover"
-                src={`http://localhost:8000/rooms/${imageUrl}`}
+                src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}rooms/${imageUrl}`}
                 fill
                 sizes="100%"
                 alt="preview"

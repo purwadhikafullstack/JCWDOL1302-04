@@ -66,7 +66,7 @@ const RoomCard = ({
     <div className="relative h-80 w-full overflow-hidden rounded-xl opacity-50 transition-all duration-500 ease-in-out [.swiper-slide-active_&]:opacity-100">
       <Image
         className="-z-10 h-full w-full rounded-xl object-cover object-center brightness-75"
-        src={`http://localhost:8000/rooms/${image}`}
+        src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}rooms/${image}`}
         fill
         sizes="100%"
         alt={`slide-${id}`}

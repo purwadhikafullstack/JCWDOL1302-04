@@ -12,7 +12,7 @@ const PropertyCard = (props: {data: TPropertiesClient}) => {
         <div className="relative aspect-[3/2.5] rounded-md overflow-hidden">
           <Image
             alt="Property Example"
-            src={`http://localhost:8000/properties/${data.image}`}
+            src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}properties/${data.image}`}
             fill
             sizes="(min-width: 768px) 25vw, 100vw"
             priority={true}
@@ -43,7 +43,6 @@ const PropertyCard = (props: {data: TPropertiesClient}) => {
           <span className="text-gray-500">{data.location}</span>
         </div>
         <div className="mt-1 flex gap-1">
-          {/* <span className="line-through text-slate-500 font-semibold">{formatCurrencyRp(729000)}</span> */}
           <span className="font-semibold">{formatCurrencyRp(data.minPrice)}</span>
           <span>/ day</span>
         </div>
