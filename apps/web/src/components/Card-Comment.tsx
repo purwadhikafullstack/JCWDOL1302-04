@@ -15,7 +15,7 @@ const CardComment = ({
 
   if (data.image) {
     avatar = data.image.startsWith('IMG')
-      ? `http://localhost:8000/user-images/${data.image}`
+      ? `${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}user-images/${data.image}`
       : data.image
   } else {
     avatar = 'https://github.com/shadcn.png';

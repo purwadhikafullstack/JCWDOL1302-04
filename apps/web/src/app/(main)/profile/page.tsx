@@ -18,7 +18,7 @@ const Profile = () => {
     avatar = session.user.image!;
   } else {
     avatar = session?.user.image
-      ? `http://localhost:8000/user-images/${session.user.image}`
+      ? `${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}user-images/${session.user.image}`
       : 'https://github.com/shadcn.png';
   }
 

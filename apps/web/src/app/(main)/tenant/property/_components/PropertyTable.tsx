@@ -132,7 +132,7 @@ const PropertyTable = () => {
     {
       accessorKey: 'image',
       header: 'Image',
-      // http://localhost:8000/user-images/${session.user.image}
+      // ${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}user-images/${session.user.image}
 
       cell(props) {
         const { row } = props;
@@ -146,7 +146,7 @@ const PropertyTable = () => {
               <div className="relative h-auto w-full">
                 <Image
                   className="!relative object-contain"
-                  src={`http://localhost:8000/properties/${payment.image}`}
+                  src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}properties/${payment.image}`}
                   fill
                   sizes="100%"
                   alt={`image-${payment.id}`}

@@ -17,7 +17,7 @@ const DetailHeader = ({ property, rating, points }: DetailHeaderProps) => (
     <div className="relative flex h-80 w-full flex-col gap-5 overflow-hidden rounded-xl md:h-96 md:gap-14">
       <Image
         className="-z-10 h-full w-full object-cover object-center brightness-75"
-        src={`http://localhost:8000/properties/${property.image}`}
+        src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}properties/${property.image}`}
         fill
         priority
         alt="hero"

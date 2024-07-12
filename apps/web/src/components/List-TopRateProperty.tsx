@@ -87,7 +87,7 @@ const ListTopRateProperty = () => {
                   <div className="relative h-80 w-full overflow-hidden rounded-xl opacity-75 transition-all duration-500 ease-in-out [.swiper-slide-active_&]:opacity-100">
                     <Image
                       className="-z-10 h-full w-full rounded-xl object-cover object-center brightness-75"
-                      src={`http://localhost:8000/properties/${image}`}
+                      src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}properties/${image}`}
                       fill
                       sizes="100%"
                       alt={`slide-${index}`}
