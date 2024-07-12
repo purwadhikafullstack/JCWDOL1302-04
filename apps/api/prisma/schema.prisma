@@ -98,6 +98,7 @@ model Order {
   checkOut     DateTime
   createAt     DateTime @default(now())
   updateAt     DateTime @updatedAt
+  isReminded   Boolean  @default(false)
 
   userId     String      @map("user_id")
   user       User        @relation(fields: [userId], references: [id])
