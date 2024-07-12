@@ -3,9 +3,9 @@ const nextConfig = {
     images: {
         remotePatterns: [
             {
-                protocol: 'http',
-                hostname: 'localhost',
-                port: '8000',
+                protocol: 'https',
+                hostname: 'jcwdol130204-api.purwadhikabootcamp.com',
+                port: '',
                 pathname: '/**',
             },
         ],
