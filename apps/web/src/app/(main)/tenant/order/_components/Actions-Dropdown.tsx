@@ -14,6 +14,7 @@ import { useSession } from 'next-auth/react';
 import {
   acceptOrderByTenantThunk,
   cancelOrderByTenantThunk,
+  rejectOrderByTenantThunk,
 } from '@/redux/slices/orderTenant-thunk';
 import { useToast } from '@/components/ui/use-toast';
 import {
@@ -140,7 +141,7 @@ const ActionsDropdown = ({
         onConfirmClick={() => {
           if (session)
             dispatch(
-              cancelOrderByTenantThunk({
+              rejectOrderByTenantThunk({
                 tenantId: session.user.id,
                 userId: roomAvaila.customerId,
                 invoiceId: roomAvaila.invoiceId,
