@@ -8,6 +8,7 @@ import { formatDistance } from 'date-fns';
 import Link from 'next/link';
 import CountDown from './Count-Down';
 import {
+  DialogAddPaymentProof,
   DialogCancelPayment,
   DialogCheckPaymentStatus,
   DialogLinkPayment,
@@ -111,6 +112,13 @@ const OrderItem = ({ order }: OrderItemProps) => {
           </div>
           <div className="flex w-full justify-end">
             <DialogCheckPaymentStatus
+              session={session}
+              invoiceId={invoiceId}
+              dispatch={dispatch}
+            />
+          </div>
+          <div className="flex w-full justify-end">
+            <DialogAddPaymentProof
               session={session}
               invoiceId={invoiceId}
               dispatch={dispatch}

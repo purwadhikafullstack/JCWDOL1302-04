@@ -1,3 +1,4 @@
+import { uploaderSingle } from '@/middlewares/upload-single';
 import { TransactionController } from '../controllers/transaction.controller';
 import { verifyToken } from '../middlewares/auth.middleware';
 import {
@@ -50,6 +51,13 @@ export class TransactionRouter {
       '/checking',
       validateAddBooking,
       this.transactionController.checkBoking,
+    );
+
+    this.router.patch(
+      '/booking/payment-proof/:uId/:iId',
+      uploaderSingle('IMG', '/payment-proofs').single('image'),
+      validateUpdateBooking,
+      this.transactionController.addBokingPaymentProof,
     );
   }
 

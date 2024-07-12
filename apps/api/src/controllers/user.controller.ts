@@ -9,6 +9,7 @@ import {
   GetUserReq,
   UpdateUserToNotVerifiedAndPasswordReq,
   UpdateImageUserReq,
+  UpdateUserToVerifiedAndPasswordReq,
 } from 'models/user.model';
 
 export class UserController {
@@ -90,6 +91,31 @@ export class UserController {
 
       res.status(200).send({
         data: user,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async updateUserVerifiedAndPasswordByEmail(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const request = req.body as UpdateUserToVerifiedAndPasswordReq;
+
+      await UserService.changeUserNewPasswordByEmail(request);
+      
+      await UserService.changeUserToNotVerifiedByEmail(request);
+
+      // const verificationToken =
+      //   await VerificationTokenService.addVerificationToken(request);
+
+      // templateNodemailer(request.email, verificationToken.token);
+
+      res.status(200).send({
+        status: 'success',
       });
     } catch (e) {
       next(e);

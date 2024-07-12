@@ -83,6 +83,8 @@ export const rejectOrderByTenantThunk = createAsyncThunk(
         },
       );
 
+      console.log('Reject', res.data.data);
+
       return { success: 'Success Reject Order', data: res.data.data };
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -118,7 +120,44 @@ export const acceptOrderByTenantThunk = createAsyncThunk(
         },
       );
 
+      console.log('Accept', res.data.data);
+
       return { success: 'Success Accept Order', data: res.data.data };
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        return {
+          error: e.response?.data.message,
+        };
+      }
+    }
+  },
+);
+
+export const reminderOrderByTenantThunk = createAsyncThunk(
+  'orderTenant/reminderOrderByTenant',
+  async ({
+    token,
+    tenantId,
+    userId,
+    invoiceId,
+  }: {
+    token: string;
+    tenantId: string;
+    userId: string;
+    invoiceId: string;
+  }) => {
+    try {
+      const res = await api.patch(
+        `order/reminder/${tenantId}/${userId}/${invoiceId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      return { success: 'Success reminder Order', data: res.data.data };
     } catch (e) {
       if (axios.isAxiosError(e)) {
         return {

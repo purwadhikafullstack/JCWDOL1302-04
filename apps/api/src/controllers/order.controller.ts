@@ -2,14 +2,18 @@ import { OrderService } from '../services/order.service';
 import { NextFunction, Request, Response } from 'express';
 
 export class OrderController {
-  async getOrdersByClientOrderId(req: Request, res: Response, next: NextFunction) {
+  async getOrdersByClientOrderId(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const { orderId } = req.params;
 
       const orders = await OrderService.getOrdersByClientOrderId(orderId);
 
       res.status(200).send({
-        data: orders
+        data: orders,
       });
     } catch (e) {
       next(e);
@@ -83,6 +87,28 @@ export class OrderController {
       const { tId: tenantId, uId: userId, iId: invoiceId } = req.params;
 
       const book = await OrderService.rejectOrder({
+        userId,
+        tenantId,
+        invoiceId,
+      });
+
+      res.status(201).send({
+        data: book,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async reminderBokingPropertyByTenant(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      const { tId: tenantId, uId: userId, iId: invoiceId } = req.params;
+
+      const book = await OrderService.reminderOrder({
         userId,
         tenantId,
         invoiceId,

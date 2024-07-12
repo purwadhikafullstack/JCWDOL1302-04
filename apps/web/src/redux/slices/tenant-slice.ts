@@ -60,7 +60,7 @@ const tenantSlice = createSlice({
       if (action.payload)
         state.properties = action.payload.error
           ? [...state.properties]
-          : [...action.payload.data];
+          : [...state.properties, ...action.payload.data];
 
       state.isLoadingProperties = false;
     });
@@ -69,10 +69,18 @@ const tenantSlice = createSlice({
       state.isLoadingProperties = true;
     });
     builder.addCase(addTenantPropertyThunk.fulfilled, (state, action) => {
-      if (action.payload)
-        state.properties = action.payload.error
-          ? [...state.properties]
-          : [action.payload.data, ...state.properties];
+        if (action.payload)
+          state.properties = action.payload.error
+            ? state.properties
+            : state.properties.map((data) => {
+                if (action.payload)
+                  if (action.payload.data.id === data.id)
+                    return {
+                      ...action.payload.data,
+                    };
+
+                return data;
+              });
 
       state.isLoadingProperties = false;
     });

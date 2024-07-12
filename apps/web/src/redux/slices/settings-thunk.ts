@@ -38,6 +38,23 @@ export const getAccountThunk = createAsyncThunk(
   },
 );
 
+export const changeUserNewPasswordThunk = createAsyncThunk(
+  'settings/changeUserNewPassword',
+  async (input: { email: string; password: string; password_old: string }) => {
+    try {
+      const res = await api.post(`users/change-new-password/`, input);
+
+      return { success: 'Success Update Account!', data: res.data.data };
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        return {
+          error: e.response?.data.message,
+        };
+      }
+    }
+  },
+);
+
 export const changeUserpasswordThunk = createAsyncThunk(
   'settings/changeUserpassword',
   async (input: { email: string; password: string }) => {

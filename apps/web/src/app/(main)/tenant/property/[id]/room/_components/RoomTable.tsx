@@ -198,7 +198,7 @@ const RoomTable = ({ pId }: { pId: string }) => {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <DialogClose>
+            <DialogClose asChild>
               <Button className="w-fit" variant={'ghost'}>
                 Batal
               </Button>
