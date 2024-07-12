@@ -94,7 +94,7 @@ const DetailOrder = ({ params }: { params: { id: string } }) => {
                   <div className="flex-1 relative max-w-[120px] h-[70px] rounded-md overflow-hidden">
                     <Image
                       alt={`${orderDetail.name+' '+odr.type}`}
-                      src={`http://localhost:8000/rooms/${odr.image}`}
+                      src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}rooms/${odr.image}`}
                       fill
                       sizes="100%"
                       style={{
