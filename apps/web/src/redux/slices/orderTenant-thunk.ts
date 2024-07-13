@@ -83,8 +83,6 @@ export const rejectOrderByTenantThunk = createAsyncThunk(
         },
       );
 
-      console.log('Reject', res.data.data);
-
       return { success: 'Success Reject Order', data: res.data.data };
     } catch (e) {
       if (axios.isAxiosError(e)) {
@@ -119,8 +117,6 @@ export const acceptOrderByTenantThunk = createAsyncThunk(
           },
         },
       );
-
-      console.log('Accept', res.data.data);
 
       return { success: 'Success Accept Order', data: res.data.data };
     } catch (e) {

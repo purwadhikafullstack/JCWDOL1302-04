@@ -66,13 +66,14 @@ const orderTenantSlice = createSlice({
         state.orders = action.payload.error
           ? state.orders
           : state.orders.map((data) => {
-              if (action.payload)
-                if (action.payload.data.orderId === data.orderId)
+              if (action.payload) {
+                if (action.payload.data.orderId === data.orderId) {
                   return {
                     ...action.payload.data,
                   };
-
-              return data;
+                }
+                return data;
+              }
             });
 
       state.isLoading = false;
@@ -86,13 +87,14 @@ const orderTenantSlice = createSlice({
         state.orders = action.payload.error
           ? state.orders
           : state.orders.map((data) => {
-              if (action.payload)
-                if (action.payload.data.orderId === data.orderId)
+              if (action.payload) {
+                if (action.payload.data.orderId === data.orderId) {
                   return {
                     ...action.payload.data,
                   };
-
-              return data;
+                }
+                return data;
+              }
             });
 
       state.isLoading = false;
@@ -106,13 +108,14 @@ const orderTenantSlice = createSlice({
         state.orders = action.payload.error
           ? state.orders
           : state.orders.map((data) => {
-              if (action.payload)
-                if (action.payload.data.orderId === data.orderId)
+              if (action.payload) {
+                if (action.payload.data.orderId === data.orderId) {
                   return {
                     ...action.payload.data,
                   };
-
-              return data;
+                }
+                return data;
+              }
             });
 
       state.isLoading = false;
@@ -126,13 +129,14 @@ const orderTenantSlice = createSlice({
         state.orders = action.payload.error
           ? state.orders
           : state.orders.map((data) => {
-              if (action.payload)
-                if (action.payload.data.orderId === data.orderId)
+              if (action.payload) {
+                if (action.payload.data.orderId === data.orderId) {
                   return {
                     ...action.payload.data,
                   };
-
-              return data;
+                }
+                return data;
+              }
             });
 
       state.isLoading = false;
