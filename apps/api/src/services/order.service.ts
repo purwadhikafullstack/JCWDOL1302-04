@@ -17,7 +17,7 @@ export class OrderService {
   static async getOrdersByClientOrderId(orderId: string) {
     const orders =
       (await prisma.$queryRaw`SELECT o.id as orderId, o.status, o.totalPayment,
-      o.checkIn, o.checkOut, o.createAt, o.expDateTime, rv.id as reviewId, p.name, p.id as propertyId,
+      o.checkIn, o.checkOut, o.createAt, o.expDateTime, rv.id as reviewId, p.name, p.id as propertyId
       FROM orders o
       LEFT JOIN reviews rv ON o.id=rv.order_id
       INNER JOIN orderRooms ors ON o.id=ors.order_id
