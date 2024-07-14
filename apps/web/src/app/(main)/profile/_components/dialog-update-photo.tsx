@@ -98,11 +98,11 @@ const DialogUpdatePhoto = () => {
             id="edit-avatar"
             name="avatar"
             type="file"
-            accept="images/*"
+            accept="image/*"
             hidden
             onChange={onChangeFile}
           />
-          <label htmlFor="edit-avatar" className="underline font-semibold">Select Photo</label>
+          <label htmlFor="edit-avatar" className="underline font-semibold cursor-pointer">Select Photo</label>
         </div>
         <div className="relative">
           {newPhoto ? (
