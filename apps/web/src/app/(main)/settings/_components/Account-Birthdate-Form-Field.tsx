@@ -46,6 +46,9 @@ const AccountBirthdateFormField = (
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
+          classNames={{
+            caption_label: 'hidden'
+          }}
           mode="single"
           selected={field.value}
           locale={id}
@@ -65,6 +68,9 @@ const AccountBirthdateFormField = (
             date > new Date() || date < new Date('1900-01-01')
           }
           initialFocus
+          captionLayout="dropdown-buttons"
+          fromYear={1900}
+          toYear={2024}
         />
       </PopoverContent>
     </Popover>
