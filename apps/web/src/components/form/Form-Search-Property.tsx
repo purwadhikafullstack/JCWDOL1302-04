@@ -59,12 +59,7 @@ const FormSearchProperty = ({
       />
       <Separator orientation="vertical" className="my-2.5 h-auto" />
       <DatePickerWithRange date={date} setDate={setDate} />
-      {/* <Separator orientation="vertical" className="my-2.5 h-auto" />
-      <Input
-        className="hover:bg-athens-gray-100 flex h-auto items-center justify-center rounded-full border-none bg-transparent px-9 py-4 placeholder:capitalize focus:border-none focus-visible:ring-0 focus-visible:ring-offset-0"
-        placeholder="jumlah kamar"
-        type="number"
-      /> */}
+
       <div className="flex h-auto pr-2">
         <Button
           onClick={handleOnSearch}

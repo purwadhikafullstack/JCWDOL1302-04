@@ -61,7 +61,10 @@ const FormSearchPropertyMobile = ({
         <DatePickerWithRange date={date} setDate={setDate} isOutline />
       </div>
 
-      <Button className="bg-gossamer-500 hover:bg-gossamer-500/90 flex w-full gap-1.5 rounded-full">
+      <Button
+        onClick={handleOnSearch}
+        className="bg-gossamer-500 hover:bg-gossamer-500/90 flex w-full gap-1.5 rounded-full"
+      >
         <Search size={16} />
         <span>Cari</span>
       </Button>
