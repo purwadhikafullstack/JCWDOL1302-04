@@ -183,3 +183,39 @@ export const cancelBookingsClientThunk = createAsyncThunk(
     }
   },
 );
+
+export const uploadPaymentProofClientThunk = createAsyncThunk(
+  'transactionClient/uploadPaymentProofClient',
+  async ({
+    userId,
+    invoiceId,
+    image,
+    token,
+  }: {
+    userId: string;
+    invoiceId: string;
+    image: File;
+    token: string;
+  }) => {
+    try {
+      const res = await api.patch(
+        `transaction/booking/payment-proof/${userId}/${invoiceId}`,
+        { image },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        },
+      );
+
+      return { success: res.data.success, data: res.data.data };
+    } catch (e) {
+      if (axios.isAxiosError(e)) {
+        return {
+          error: e.response?.data.message,
+        };
+      }
+    }
+  },
+);

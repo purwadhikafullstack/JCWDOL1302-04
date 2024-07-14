@@ -127,7 +127,7 @@ const BookingDialog = ({
             </div>
 
             <DialogFooter>
-              <DialogClose>
+              <DialogClose asChild>
                 <Button variant={'ghost'}>Batal</Button>
               </DialogClose>
               <Button

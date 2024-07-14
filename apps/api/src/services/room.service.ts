@@ -179,6 +179,28 @@ export class RoomService {
       },
     });
 
+    await prisma.review.deleteMany({
+      where: {
+        order: {
+          orderRooms: {
+            every: {
+              roomId: rId,
+            },
+          },
+        },
+      },
+    });
+
+    await prisma.order.deleteMany({
+      where: {
+        orderRooms: {
+          every: {
+            roomId: rId,
+          },
+        },
+      },
+    });
+
     const room = await prisma.room.delete({
       where: {
         id: rId,

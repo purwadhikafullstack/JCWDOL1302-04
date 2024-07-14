@@ -2,6 +2,7 @@ import { TransactionService } from '../services/transaction.service';
 import { AddDOKUPaymentRes, DOKURes } from '../utils/doku-utils/doku-model';
 import { NextFunction, Request, Response } from 'express';
 import { AddBokingProperty } from '../../models/transaction.model';
+import { ResponseError } from '@/error/response-error';
 
 export class TransactionController {
   async addBoking(req: Request, res: Response, next: NextFunction) {
@@ -73,6 +74,33 @@ export class TransactionController {
       });
 
       res.status(201).send({
+        data: book,
+      });
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async addBokingPaymentProof(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { file } = req;
+
+      if (file == undefined) {
+        throw new ResponseError(404, 'Image is required');
+      }
+
+      const { uId: userId, iId: invoiceId } = req.params;
+
+      const image = file.filename;
+
+      const book = await TransactionService.addBookingPaymentProof({
+        userId,
+        invoiceId,
+        image,
+      });
+
+      res.status(201).send({
+        status: 'success',
         data: book,
       });
     } catch (e) {

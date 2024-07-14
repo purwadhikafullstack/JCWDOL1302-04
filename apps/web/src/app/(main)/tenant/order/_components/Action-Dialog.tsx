@@ -7,11 +7,8 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
-import { Ban } from 'lucide-react';
 
 const ActionDialog = ({
   onOpenChange,
@@ -26,16 +23,14 @@ const ActionDialog = ({
 }) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      {/* <DialogTrigger>{trigger}</DialogTrigger> */}
-
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Are you absolutely sure?</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <DialogClose>
-            <Button variant={'ghost'}>Cancel</Button>
+          <DialogClose asChild>
+            <Button variant="ghost">Cancel</Button>
           </DialogClose>
           <Button onClick={onConfirmClick}>Confirm</Button>
         </DialogFooter>

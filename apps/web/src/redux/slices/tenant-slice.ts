@@ -97,13 +97,14 @@ const tenantSlice = createSlice({
           state.properties = action.payload.error
             ? state.properties
             : state.properties.map((data) => {
-                if (action.payload)
-                  if (action.payload.data.id === data.id)
+                if (action.payload) {
+                  if (action.payload.data.id === data.id) {
                     return {
                       ...action.payload.data,
                     };
-
-                return data;
+                  }
+                  return data;
+                }
               });
 
         state.isLoadingProperty = false;

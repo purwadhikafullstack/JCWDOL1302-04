@@ -273,6 +273,28 @@ export class PropertyService {
           roomId: room.id,
         },
       });
+
+      await prisma.review.deleteMany({
+        where: {
+          order: {
+            orderRooms: {
+              every: {
+                roomId: room.id
+              }
+            }
+          }
+        }
+      });
+
+      await prisma.order.deleteMany({
+        where: {
+          orderRooms: {
+            every: {
+              roomId: room.id
+            }
+          }
+        }
+      });
     }
 
     // Delete all Room records related to the property

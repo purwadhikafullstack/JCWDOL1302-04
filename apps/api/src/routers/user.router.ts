@@ -9,6 +9,7 @@ import {
   validateUpdateUserNotVerifiedAndPasswordByEmail,
   validateUpdateImage,
   validateCheckEmail,
+  validateUpdateUseVerifiedAndPasswordByEmail,
 } from '../validation/user.validation';
 import { Router } from 'express';
 
@@ -43,6 +44,11 @@ export class UserRouter {
       '/verification-by-token',
       validateVerificationUser,
       this.userController.verificationUserByToken,
+    );
+    this.router.post(
+      '/change-new-password',
+      validateUpdateUseVerifiedAndPasswordByEmail,
+      this.userController.updateUserVerifiedAndPasswordByEmail,
     );
     this.router.post(
       '/change-password',

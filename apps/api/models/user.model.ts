@@ -27,6 +27,12 @@ export type GetAccountUserReq = {
   gender?: string | null;
 };
 
+export type UpdateUserToVerifiedAndPasswordReq = {
+  email: string;
+  password: string;
+  password_old: string;
+};
+
 export type UpdateUserToNotVerifiedAndPasswordReq = {
   email: string;
   password: string;
@@ -35,7 +41,7 @@ export type UpdateUserToNotVerifiedAndPasswordReq = {
 export type UpdateImageUserReq = {
   email: string;
   image: string;
-}
+};
 
 export const toAddUserRes = (user: User) => {
   return {
@@ -45,7 +51,7 @@ export const toAddUserRes = (user: User) => {
     image: user.image,
     role: user.role,
     isVerified: user.isVerified,
-    provider: user.provider
+    provider: user.provider,
   };
 };
 

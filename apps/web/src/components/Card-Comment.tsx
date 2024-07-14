@@ -61,7 +61,7 @@ const CardComment = ({
       </div>
       <div className="flex flex-col gap-2">
         <span className="text-sm text-gray-600">
-          Type:
+          {data.orderRooms.length > 1 ? ('Rooms:'):('Room:')}
           {data.orderRooms.map((odr, i) => {
             return i > 0 ? `, ${odr.type}` : ` ${odr.type}`
           })}

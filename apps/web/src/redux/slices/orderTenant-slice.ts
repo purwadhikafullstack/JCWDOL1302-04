@@ -4,6 +4,7 @@ import {
   cancelOrderByTenantThunk,
   getOrderByUserId,
   rejectOrderByTenantThunk,
+  reminderOrderByTenantThunk,
 } from './orderTenant-thunk';
 
 type TGetRoomsByUserId = {
@@ -23,6 +24,8 @@ export type TGetOrdersByUserId = {
   checkOut: string;
   expDateTime: string;
   invoiceId: string;
+  isReminded: number;
+  paymentProofImage: string;
   customerId: string;
   customerName: string;
   customerEmail: string;
@@ -63,13 +66,14 @@ const orderTenantSlice = createSlice({
         state.orders = action.payload.error
           ? state.orders
           : state.orders.map((data) => {
-              if (action.payload)
-                if (action.payload.data.orderId === data.orderId)
+              if (action.payload) {
+                if (action.payload.data.orderId === data.orderId) {
                   return {
                     ...action.payload.data,
                   };
-
-              return data;
+                }
+                return data;
+              }
             });
 
       state.isLoading = false;
@@ -83,13 +87,14 @@ const orderTenantSlice = createSlice({
         state.orders = action.payload.error
           ? state.orders
           : state.orders.map((data) => {
-              if (action.payload)
-                if (action.payload.data.orderId === data.orderId)
+              if (action.payload) {
+                if (action.payload.data.orderId === data.orderId) {
                   return {
                     ...action.payload.data,
                   };
-
-              return data;
+                }
+                return data;
+              }
             });
 
       state.isLoading = false;
@@ -103,13 +108,35 @@ const orderTenantSlice = createSlice({
         state.orders = action.payload.error
           ? state.orders
           : state.orders.map((data) => {
-              if (action.payload)
-                if (action.payload.data.orderId === data.orderId)
+              if (action.payload) {
+                if (action.payload.data.orderId === data.orderId) {
                   return {
                     ...action.payload.data,
                   };
+                }
+                return data;
+              }
+            });
 
-              return data;
+      state.isLoading = false;
+    });
+
+    builder.addCase(reminderOrderByTenantThunk.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(reminderOrderByTenantThunk.fulfilled, (state, action) => {
+      if (action.payload)
+        state.orders = action.payload.error
+          ? state.orders
+          : state.orders.map((data) => {
+              if (action.payload) {
+                if (action.payload.data.orderId === data.orderId) {
+                  return {
+                    ...action.payload.data,
+                  };
+                }
+                return data;
+              }
             });
 
       state.isLoading = false;

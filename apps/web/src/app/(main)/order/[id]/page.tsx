@@ -13,7 +13,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from 'react'
 import DialogReview from "./_components/Dialog-Review";
-import { Button } from "@/components/ui/button";
 
 const DetailOrder = ({ params }: { params: { id: string } }) => {
   const {data: session} = useSession();
@@ -149,7 +148,7 @@ const DetailOrder = ({ params }: { params: { id: string } }) => {
             </div>
           </div>
           {(!orderDetail.reviewId && orderDetail.status === "finished") ? (
-            <DialogReview orderId={orderDetail.orderId} allowed={new Date(orderDetail.checkIn) <= new Date()} />
+            <DialogReview orderId={orderDetail.orderId} allowed={new Date(orderDetail.checkOut) <= new Date()} />
           ):(
             ""
           )}

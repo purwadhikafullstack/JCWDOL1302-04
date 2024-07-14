@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils';
 import { useSession } from 'next-auth/react';
 import { useToast } from '@/components/ui/use-toast';
 import ActionsDropdown from './Actions-Dropdown';
+import Image from 'next/image';
 
 const OrderTable = () => {
   const { orders } = useAppSelector((state) => state.orderTenantReducer);
@@ -50,6 +51,24 @@ const OrderTable = () => {
     {
       accessorKey: 'invoiceId',
       header: 'Invoice Id',
+    },
+    {
+      accessorKey: 'isReminded',
+      header: 'Reminder Status',
+      cell: ({ row }) => {
+        const order = row.original;
+
+        return (
+          <div
+            className={cn(
+              `font-semibold capitalize`,
+              order.isReminded === 1 ? 'text-gossamer-600' : 'text-red-700',
+            )}
+          >
+            {order.isReminded === 1 ? 'YES' : 'NO'}
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'status',
@@ -148,6 +167,34 @@ const OrderTable = () => {
                   </div>
                 </>
               ))}
+            </PopoverContent>
+          </Popover>
+        );
+      },
+    },
+    {
+      accessorKey: 'paymentProofImage',
+      header: 'Payment Proof',
+      // ${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}user-images/${session.user.image}
+
+      cell(props) {
+        const { row } = props;
+
+        const payment = row.original;
+
+        return (
+          <Popover>
+            <PopoverTrigger>{payment.paymentProofImage}</PopoverTrigger>
+            <PopoverContent>
+              <div className="relative h-auto w-full">
+                <Image
+                  className="!relative object-contain"
+                  src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}payment-proofs/${payment.paymentProofImage}`}
+                  fill
+                  sizes="100%"
+                  alt={`image-${payment.orderId}`}
+                />
+              </div>
             </PopoverContent>
           </Popover>
         );

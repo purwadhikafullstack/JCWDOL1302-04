@@ -75,7 +75,7 @@ const DialogReview = ({
         <DialogHeader>
           <DialogTitle>Review Property</DialogTitle>
           <DialogDescription>
-            This review is only done once after check in.
+            This review is only done once after check out.
           </DialogDescription>
         </DialogHeader>
         {allowed ? (
@@ -193,7 +193,7 @@ const DialogReview = ({
           </Form>
         ):(
           <>
-            <span>The review will be available when your payment is complete and you have check in</span>
+            <span>The review will be available when your payment is complete and you have check out</span>
             <span>Please come back later :)</span>
           </>
         )}

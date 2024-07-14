@@ -5,6 +5,7 @@ import {
   checkBookingClientThunk,
   getBookingsClientThunk,
   updateBookingsClientThunk,
+  uploadPaymentProofClientThunk,
 } from './transaction-thunk';
 
 export type TOrderData = {
@@ -139,6 +140,29 @@ const transactionClientSlice = createSlice({
 
       state.isLoadingGetBookings = false;
     });
+
+    builder.addCase(uploadPaymentProofClientThunk.pending, (state) => {
+      state.isLoadingGetBookings = true;
+    });
+    builder.addCase(
+      uploadPaymentProofClientThunk.fulfilled,
+      (state, action) => {
+        if (action.payload)
+          state.orderList = action.payload.error
+            ? state.orderList
+            : state.orderList.map((data) => {
+                if (action.payload)
+                  if (action.payload.data.id === data.id)
+                    return {
+                      ...action.payload.data,
+                    };
+
+                return data;
+              });
+
+        state.isLoadingGetBookings = false;
+      },
+    );
 
     builder.addCase(checkBookingClientThunk.pending, (state) => {
       state.isLoadingCheckBooking = true;

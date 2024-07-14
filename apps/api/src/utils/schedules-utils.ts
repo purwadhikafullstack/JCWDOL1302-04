@@ -7,6 +7,7 @@ export const reminderRuleUtil = async () => {
   const orders = await prisma.order.findMany({
     where: {
       status: 'finished',
+      isReminded: false,
     },
     include: {
       user: true,

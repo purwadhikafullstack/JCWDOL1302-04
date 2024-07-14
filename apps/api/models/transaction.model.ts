@@ -19,6 +19,12 @@ export type CheckBokingPropertyReq = {
   invoiceId: string;
 };
 
+export type AddBookingPaymentProof = {
+  userId: string;
+  invoiceId: string;
+  image: string;
+};
+
 export type DokuRoomBokingProperty = {
   roomId: string;
   quantity: number;
