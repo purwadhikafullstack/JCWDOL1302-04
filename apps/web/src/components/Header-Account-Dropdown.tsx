@@ -67,6 +67,14 @@ const HeaderAccountDropdown = () => {
                 <span>Dashboard</span>
               </DropdownMenuItem>
             </Link>
+            {session?.user.role === 'SUPER_ADMIN' && (
+              <Link href={'/tenant/property-category'}>
+                <DropdownMenuItem>
+                  <Building2 className="mr-2 h-4 w-4" />
+                  <span>Property Category</span>
+                </DropdownMenuItem>
+              </Link>
+            )}
             <Link href={'/tenant/property'}>
               <DropdownMenuItem>
                 <Building2 className="mr-2 h-4 w-4" />
