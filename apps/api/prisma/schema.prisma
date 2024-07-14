@@ -88,16 +88,18 @@ model RoomPrice {
 }
 
 model Order {
-  id           String   @id @default(uuid())
-  expDateTime  DateTime
-  status       String   @default("pending") @db.VarChar(100)
-  totalPayment Float
-  invoiceId    String   @db.VarChar(255)
-  urlPayment   String   @db.VarChar(255)
-  checkIn      DateTime
-  checkOut     DateTime
-  createAt     DateTime @default(now())
-  updateAt     DateTime @updatedAt
+  id                String   @id @default(uuid())
+  expDateTime       DateTime
+  status            String   @default("pending") @db.VarChar(100)
+  totalPayment      Float
+  invoiceId         String   @db.VarChar(255)
+  urlPayment        String   @db.VarChar(255)
+  checkIn           DateTime
+  checkOut          DateTime
+  createAt          DateTime @default(now())
+  updateAt          DateTime @updatedAt
+  isReminded        Boolean  @default(false)
+  paymentProofImage String?
 
   userId     String      @map("user_id")
   user       User        @relation(fields: [userId], references: [id])

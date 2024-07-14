@@ -164,7 +164,7 @@ const FormSpecialPrice = ({
           name="toDate"
           render={({field}) => (
             <FormItem className="flex flex-col">
-              <FormLabel>To Date <span className="text-slate-500">(Optional)</span></FormLabel>
+              <FormLabel>To Date</FormLabel>
               <Popover modal={modalPopover}>
                 <PopoverTrigger asChild>
                   <FormControl>

@@ -7,13 +7,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Ban, Check, MoreHorizontal } from 'lucide-react';
+import { Ban, Bell, Check, MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch } from '@/redux/hook';
 import { useSession } from 'next-auth/react';
 import {
   acceptOrderByTenantThunk,
   cancelOrderByTenantThunk,
+  rejectOrderByTenantThunk,
+  reminderOrderByTenantThunk,
 } from '@/redux/slices/orderTenant-thunk';
 import { useToast } from '@/components/ui/use-toast';
 import {
@@ -27,6 +29,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import ActionDialog from './Action-Dialog';
+import { addDays } from 'date-fns';
 
 const ActionsDropdown = ({
   roomAvaila,
@@ -40,10 +43,12 @@ const ActionsDropdown = ({
   const [isOpenDialogCancel, setIsOpenDialogCancel] = useState(false);
   const [isOpenDialogAccept, setIsOpenDialogAccept] = useState(false);
   const [isOpenDialogReject, setIsOpenDialogReject] = useState(false);
+  const [isOpenDialogReminder, setIsOpenDialogReminder] = useState(false);
 
   const onDialogOpenCancel = (open: boolean) => setIsOpenDialogCancel(open);
   const onDialogOpenAccept = (open: boolean) => setIsOpenDialogAccept(open);
   const onDialogOpenReject = (open: boolean) => setIsOpenDialogReject(open);
+  const onDialogOpenReminder = (open: boolean) => setIsOpenDialogReminder(open);
 
   return (
     <>
@@ -84,6 +89,18 @@ const ActionsDropdown = ({
               </DropdownMenuItem>
             </>
           )}
+
+          {roomAvaila.status === 'finished' &&
+            new Date() < addDays(new Date(roomAvaila.checkIn), -0.5) &&
+            roomAvaila.isReminded === 0 && (
+              <DropdownMenuItem
+                className="flex items-center gap-2"
+                onClick={() => onDialogOpenReminder(true)}
+              >
+                <Bell size={16} />
+                <span>Reminder now</span>
+              </DropdownMenuItem>
+            )}
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -140,7 +157,30 @@ const ActionsDropdown = ({
         onConfirmClick={() => {
           if (session)
             dispatch(
-              cancelOrderByTenantThunk({
+              rejectOrderByTenantThunk({
+                tenantId: session.user.id,
+                userId: roomAvaila.customerId,
+                invoiceId: roomAvaila.invoiceId,
+                token: session.user.accessToken!,
+              }),
+            ).then((data: any) => {
+              toast({
+                variant: data.payload.error ? 'destructive' : 'default',
+                title: data.payload.error
+                  ? data.payload.error
+                  : data.payload.success,
+              });
+            });
+        }}
+      />
+      <ActionDialog
+        open={isOpenDialogReminder}
+        onOpenChange={onDialogOpenReminder}
+        description="This action cannot be undone. Are you sure you want to permanently Reminder this order?"
+        onConfirmClick={() => {
+          if (session)
+            dispatch(
+              reminderOrderByTenantThunk({
                 tenantId: session.user.id,
                 userId: roomAvaila.customerId,
                 invoiceId: roomAvaila.invoiceId,

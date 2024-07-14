@@ -20,13 +20,19 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import { ChangePasswordSchema } from '@/schemas/change-password-schema';
+import {
+  ChangeNewPasswordSchema,
+  ChangePasswordSchema,
+} from '@/schemas/change-password-schema';
 import { UseFormReturn, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { signout } from '@/actions/auth';
 import { useAppDispatch } from '@/redux/hook';
-import { changeUserpasswordThunk } from '@/redux/slices/settings-thunk';
+import {
+  changeUserNewPasswordThunk,
+  changeUserpasswordThunk,
+} from '@/redux/slices/settings-thunk';
 import { useSession } from 'next-auth/react';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -39,15 +45,16 @@ const SecurityContent = () => {
 
   const dispatch = useAppDispatch();
 
-  const form = useForm<z.infer<typeof ChangePasswordSchema>>({
-    resolver: zodResolver(ChangePasswordSchema),
+  const form = useForm<z.infer<typeof ChangeNewPasswordSchema>>({
+    resolver: zodResolver(ChangeNewPasswordSchema),
     defaultValues: {
+      password_old: '',
       password: '',
       password_confirm: '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof ChangePasswordSchema>) => {
+  const onSubmit = (values: z.infer<typeof ChangeNewPasswordSchema>) => {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     onDialogOpenHandler(true);
@@ -60,8 +67,9 @@ const SecurityContent = () => {
 
     if (session && values.password)
       dispatch(
-        changeUserpasswordThunk({
+        changeUserNewPasswordThunk({
           email: session.user.email,
+          password_old: values.password_old,
           password: values.password,
         }),
       ).then(async (data: any) => {
@@ -70,16 +78,31 @@ const SecurityContent = () => {
           title: data.payload.error ? data.payload.error : data.payload.success,
         });
 
-        await signout();
+        if (!data.payload.error) await signout();
       });
   };
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full space-y-6"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+        <FormField
+          control={form.control}
+          name="password_old"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password Lama</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Password Lama"
+                  type="password"
+                  disabled={session?.user.provider === 'google'}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="password"
@@ -135,7 +158,7 @@ const SecurityContent = () => {
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <DialogClose>
+              <DialogClose asChild>
                 <Button className="w-fit" variant={'ghost'}>
                   Batal
                 </Button>

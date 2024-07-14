@@ -13,7 +13,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect } from 'react'
 import DialogReview from "./_components/Dialog-Review";
-import { Button } from "@/components/ui/button";
 
 const DetailOrder = ({ params }: { params: { id: string } }) => {
   const {data: session} = useSession();
@@ -94,7 +93,7 @@ const DetailOrder = ({ params }: { params: { id: string } }) => {
                   <div className="flex-1 relative max-w-[120px] h-[70px] rounded-md overflow-hidden">
                     <Image
                       alt={`${orderDetail.name+' '+odr.type}`}
-                      src={`http://localhost:8000/rooms/${odr.image}`}
+                      src={`${process.env.NEXT_PUBLIC_BASE_BE_PUBLIC_URL}rooms/${odr.image}`}
                       fill
                       sizes="100%"
                       style={{
@@ -149,7 +148,7 @@ const DetailOrder = ({ params }: { params: { id: string } }) => {
             </div>
           </div>
           {(!orderDetail.reviewId && orderDetail.status === "finished") ? (
-            <DialogReview orderId={orderDetail.orderId} allowed={new Date(orderDetail.checkIn) <= new Date()} />
+            <DialogReview orderId={orderDetail.orderId} allowed={new Date(orderDetail.checkOut) <= new Date()} />
           ):(
             ""
           )}

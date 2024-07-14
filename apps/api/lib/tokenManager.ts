@@ -3,7 +3,7 @@ import { User } from "@/types/express";
 import { sign, verify } from 'jsonwebtoken'
 
 const TokenManager = {
-  generateToken: (payload: User) => sign(payload, TOKEN_SECRET_KEY!, { expiresIn: '30d' }),
+  generateToken: (payload: User) => sign(payload, TOKEN_SECRET_KEY!, { expiresIn: '3d' }),
   verifyToken: (token: string) => verify(token, TOKEN_SECRET_KEY!)
 }
 

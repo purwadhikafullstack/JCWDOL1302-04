@@ -37,6 +37,12 @@ export class OrderRouter {
       validateTenantUpdateBooking,
       this.orderController.rejectedBokingPropertyByTenant,
     );
+
+    this.router.patch(
+      '/reminder/:tId/:uId/:iId',
+      validateTenantUpdateBooking,
+      this.orderController.reminderBokingPropertyByTenant,
+    );
   }
 
   getRouter(): Router {

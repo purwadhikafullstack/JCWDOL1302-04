@@ -10,6 +10,7 @@ import {
   toUserRes,
   UpdateUserToNotVerifiedAndPasswordReq,
   UpdateImageUserReq,
+  UpdateUserToVerifiedAndPasswordReq,
 } from '../../models/user.model';
 
 export class UserService {
@@ -77,7 +78,10 @@ export class UserService {
       throw new ResponseError(400, 'Email or password is wrong!');
 
     if (req.password && !user.password)
-      throw new ResponseError(400, 'Your account is registered using Google. Please sign in with Google.')
+      throw new ResponseError(
+        400,
+        'Your account is registered using Google. Please sign in with Google.',
+      );
 
     if (req.password && user.password) {
       const isPasswordValid = await bcrypt.compare(req.password, user.password);
@@ -157,6 +161,34 @@ export class UserService {
   static async changeUserPasswordByEmail(
     req: UpdateUserToNotVerifiedAndPasswordReq,
   ) {
+    const password = await bcrypt.hash(req.password, 10);
+
+    await prisma.user.update({
+      where: {
+        email: req.email,
+      },
+      data: {
+        password,
+      },
+    });
+  }
+
+  static async changeUserNewPasswordByEmail(
+    req: UpdateUserToVerifiedAndPasswordReq,
+  ) {
+    const password_old = await bcrypt.hash(req.password_old, 10);
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email: req.email,
+      },
+    });
+
+    if (!user) throw new ResponseError(404, 'Email or password is wrong!');
+
+    if (!req.password && user.password)
+      throw new ResponseError(400, 'old password is wrong!');
+
     const password = await bcrypt.hash(req.password, 10);
 
     await prisma.user.update({

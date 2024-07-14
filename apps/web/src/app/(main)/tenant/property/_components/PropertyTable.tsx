@@ -226,7 +226,7 @@ const PropertyTable = () => {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <DialogClose>
+            <DialogClose asChild>
               <Button className="w-fit" variant={'ghost'}>
                 Batal
               </Button>

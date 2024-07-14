@@ -58,12 +58,12 @@ const FilterDialog = ({
     <Dialog open={openDialog} onOpenChange={handleOnOpenChange}>
       <DialogTrigger asChild>
         <Button variant="outline" onClick={() => setOpenDialog(true)}>
-          Filter
+          Sort by
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Filter</DialogTitle>
+          <DialogTitle>Sort by</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div>

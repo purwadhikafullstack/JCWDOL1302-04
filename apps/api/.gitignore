@@ -4,3 +4,4 @@ node_modules
 public/user-images/*
 public/properties/*
 public/rooms/*
+public/payment-proofs/*

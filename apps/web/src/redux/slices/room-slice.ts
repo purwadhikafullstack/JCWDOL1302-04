@@ -76,13 +76,14 @@ const roomSlice = createSlice({
         state.rooms = action.payload.error
           ? state.rooms
           : state.rooms.map((data) => {
-              if (action.payload)
-                if (action.payload.data.id === data.id)
+              if (action.payload) {
+                if (action.payload.data.id === data.id) {
                   return {
                     ...action.payload.data,
                   };
-
-              return data;
+                }
+                return data;
+              }
             });
 
       state.isLoadingRoom = false;
