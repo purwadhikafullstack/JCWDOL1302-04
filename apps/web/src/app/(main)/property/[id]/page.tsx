@@ -57,7 +57,7 @@ const DetailPage = ({ params }: { params: { id: string } }) => {
     (state) => state.reviewReducer,
   );
   const points = propertyReviews.map((pr) => pr.point);
-  const rating = points.length > 0 ? points.reduce((t, c) => t + c) / points.length : '';
+  const rating = points.length > 0 ? Number((points.reduce((t, c) => t + c) / points.length).toFixed(1)) : '';
 
   useEffect(() => {
     dispatch(getPropertyDetailClientThunk({ id: params.id }));

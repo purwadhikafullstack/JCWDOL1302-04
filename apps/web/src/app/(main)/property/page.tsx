@@ -112,7 +112,7 @@ const Property = () => {
                     />
                   </div>
                 </div>
-                <div className="grid gap-x-6 gap-y-10 md:grid-cols-4">
+                <div className="grid gap-x-6 gap-y-10 lg:grid-cols-4 md:grid-cols-3 grid-cols-1">
                   {properties.map((d) => (
                     <Link key={d.id} href={`/property/${d.id}`}>
                       <PropertyCard data={d} />
