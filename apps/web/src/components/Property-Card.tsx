@@ -29,7 +29,7 @@ const PropertyCard = (props: {data: TPropertiesClient}) => {
             {data.rating ? (
               <>
                 <Star className="text-yellow-500" size={14} />
-                <span className="flex-1">{data.rating}</span>
+                <span className="flex-1">{data.rating.toFixed(1)}</span>
               </>
             ):(
               <span>News</span>

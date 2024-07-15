@@ -101,7 +101,7 @@ const ListTopRateProperty = () => {
                         {review > 0 ? (
                           <>
                             <div className="flex items-center gap-2">
-                              <Star size={16} /> <span>{rating}</span>
+                              <Star size={16} /> <span>{rating.toFixed(1)}</span>
                             </div>
                             <p>({review} reviews)</p>
                           </>
