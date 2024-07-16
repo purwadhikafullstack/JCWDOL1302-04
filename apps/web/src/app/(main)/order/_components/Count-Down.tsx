@@ -8,11 +8,11 @@ const CountDown = ({ dateAt }: { dateAt: Date }) => {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
-    const target = dateAt;
+    const target = new Date(dateAt).getTime(); // Convert to milliseconds
 
     const interval = setInterval(() => {
-      const now = new Date();
-      const difference = target.getTime() - now.getTime();
+      const now = new Date().getTime(); // Get current time in milliseconds
+      const difference = target - now;
 
       const d = Math.floor(difference / (1000 * 60 * 60 * 24));
       setDays(d);
@@ -30,14 +30,15 @@ const CountDown = ({ dateAt }: { dateAt: Date }) => {
 
       if (d <= 0 && h <= 0 && m <= 0 && s <= 0) {
         setPartyTime(true);
+        clearInterval(interval);
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [dateAt]);
 
   return (
-    <div className="flex text-black text-xs">
+    <div className="flex text-xs text-black">
       <div className="flex gap-2">
         <div className="flex gap-1">
           <span>{days}</span>
