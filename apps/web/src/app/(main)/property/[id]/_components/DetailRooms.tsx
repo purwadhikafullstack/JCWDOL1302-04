@@ -52,7 +52,7 @@ const DetailRooms = ({
           ({ id, type, description, roomPrice: price, image }, index) => (
             <SwiperSlide
               key={`${id}-${index}`}
-              className={cn('!flex !w-[50%] items-center justify-center')}
+              className={cn('!flex md:!w-[50%] !w-[100%] items-center justify-center')}
             >
               <RoomCard
                 id={id}
